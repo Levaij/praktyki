@@ -1,0 +1,49 @@
+*{
+
+    margin: 0;
+
+}
+
+h1 {
+    display: block;
+    font: 3rem 'Fira Sans',
+    sans-serif;
+}
+
+label {
+
+    display: block;
+    font: 1rem 'Fira Sans',
+    sans-serif;
+
+}
+
+input, label {
+
+    margin: 0.4rem;
+
+}
+
+.left, .center, .right {
+
+background-color: lightblue;
+}
+
+.left {
+    float: left;
+    width: 36%;
+    height: 100vh;
+}
+
+.center {
+    float: left;
+    width: 28%;
+    height: 100vh;
+    text-align: center;
+}
+
+.right { 
+    float: left;
+    width: 36%;
+    height: 100vh;
+}
