@@ -22,6 +22,10 @@ function pojazdf() {
         kilometrowkaSection.innerHTML =
             '<label for="od900">Samochodem osobowym o pojemności silnika pow. 900 cm3</label>' +
             '<input id="od900" min="0" type="number" name="od900" value="0"> km';
+    } else if (selectedPojazd === 3) {
+        kilometrowkaSection.innerHTML =
+            '<label for="ptrans">Podaj Koszt publicznego środka transportu:</label>' +
+            '<input id="ptrans" min="0" type="number" name="ptrans" value="0"> PLN.';
     }
 }
 
@@ -35,10 +39,12 @@ function dieta() {
     var sniadania = parseInt(document.getElementById("sniadanie").value);
     var obiady = parseInt(document.getElementById("obiad").value);
     var kolacje = parseInt(document.getElementById("kolacja").value);
-    
+
+    var ptransElement = document.getElementById("ptrans");
     var od900Element = document.getElementById("od900");
     var do900Element = document.getElementById("do900");
     
+    var ptrans = ptransElement ? parseFloat(ptransElement.value) : 0;
     var od900 = od900Element ? parseFloat(od900Element.value) : 0;
     var do900 = do900Element ? parseFloat(do900Element.value) : 0;
     
@@ -47,9 +53,10 @@ function dieta() {
         return;
     }
 
+    var wyplataptrans = ptrans;
     var wyplatado900 = 0.89 * do900;
     var wyplataod900 = 1.15 * od900;
-    var wyplatapaliwo = (wyplatado900 + wyplataod900).toFixed(2);
+    var wyplatapaliwo = ((wyplataptrans + wyplatado900) + wyplataod900).toFixed(2);
 
     var date1 = new Date(startElement.value);
     var date2 = new Date(endElement.value);
@@ -87,9 +94,39 @@ function dieta() {
         document.getElementById("bladkm").innerHTML = "";
     }
 
+    if (date2 < date1) {
+        wyplata = 0;
+        document.getElementById("bladdata").innerHTML = "Podaj poprawne terminy delegacji!"
+    } else {
+        document.getElementById("bladdata").innerHTML = ""
+    }
+
     var suma = 0;
     var suma = parseFloat(wyplata) + parseFloat(wyplatapaliwo);
 
     document.getElementById("wynik").innerHTML =
         "Przyznana dieta wynosi: " + wyplata.toFixed(2) + " PLN. <br> Zwrot kosztów przejazdu wynosi: " + wyplatapaliwo + " PLN. <br> Suma przyznanych pieniędzy wynosi: " + suma.toFixed(2) + " PLN.";
 }
+
+function setCurrentDate() {
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1; // Miesiące są liczone od 0, więc dodajemy 1
+    var year = today.getFullYear();
+
+    if (day < 10) {
+        day = '0' + day; // Dodaj zero przed dniem, jeśli jest mniejszy niż 10
+    }
+
+    if (month < 10) {
+        month = '0' + month; // Dodaj zero przed miesiącem, jeśli jest mniejszy niż 10
+    }
+
+    var formattedDate = year + '-' + month + '-' + day;
+    var dateInputs = document.getElementsByClassName('obecnadata');
+    for (var i = 0; i < dateInputs.length; i++) {
+        dateInputs[i].value = formattedDate;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", setCurrentDate);
