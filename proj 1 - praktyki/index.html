@@ -6,12 +6,13 @@
     <title>Kalkulator Diet</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var pojazdElement = document.getElementById("pojazd");
-            if (pojazdElement) {
-                // Ustaw opcję domyślną na "Samochód osobowy do 900cm3."
-                pojazdElement.value = "0";
-            }
+        var pojazdElement = document.getElementById("pojazd");
+        if (pojazdElement) {
+            // Ustaw opcję domyślną na "Samochód osobowy do 900cm3."
+            pojazdElement.value = "0";
+        }
         });
+        
     </script>
     
 </head>
@@ -21,7 +22,8 @@
         <h1>Kalkulator Diet</h1>
 
         <label for="start">Data rozpoczęcia podróży:</label>
-        <input id="start" type="date" name="odjazd" value="">
+        <input id="start" type="date" class="obecnadata" name="odjazd" value="">
+
 
         <select id="Godziny-odjazd" name="Godziny-odjazd" class="form-control">
             <option value="0">00</option>
@@ -115,7 +117,7 @@
 
 
         <label for="end">Data końca podróży:</label>
-        <input id="end" type="date" name="przyjazd" value="">
+        <input id="end" type="date" class="obecnadata" name="przyjazd" value="">
 
         <select id="Godziny-przyjazd" name="Godziny-przyjazd" class="form-control">
             <option value="0">00</option>
@@ -207,6 +209,8 @@
             <option value="59">59</option>
         </select>
 
+        <p id="bladdata" style="color: red;"></p>
+
         <label for="sniadanie">Ilość śniadań:</label>
         <input id="sniadanie" min="0" type="number" name="sniadanie" value="0">
 
@@ -230,6 +234,7 @@
             <option value="0" selected>Nie jechałem samochodem.</option>
             <option value="1">Samochód osobowy do 900cm3.</option>
             <option value="2">Samochód osobowy pow. 900cm3.</option>
+            <option value="3">Publiczny środek transportu</option>
         </select>
 
 
