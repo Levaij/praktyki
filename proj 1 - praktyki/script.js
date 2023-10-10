@@ -73,10 +73,23 @@ function dieta() {
         wyplata = 0;
     }
 
-    if (od900 < 0 || do900 < 0) {
-        wyplatapaliwo = 0;
+    if (sniadania < 0 || obiady < 0 || kolacje < 0){
+        document.getElementById("blad").innerHTML = "Podaj poprawną liczbe posiłków!";
+        wyplata = 0;
+    } else {
+        document.getElementById("blad").innerHTML = "";
     }
 
+    if (od900 < 0 || do900 < 0) {
+        document.getElementById("bladkm").innerHTML = "Podaj poprawną liczbe kilometrów!";
+        wyplatapaliwo = 0;
+    } else {
+        document.getElementById("bladkm").innerHTML = "";
+    }
+
+    var suma = 0;
+    var suma = parseFloat(wyplata) + parseFloat(wyplatapaliwo);
+
     document.getElementById("wynik").innerHTML =
-        "Przyznana dieta wynosi: " + wyplata.toFixed(2) + " PLN. <br> Zwrot kosztów przejazdu wynosi: " + wyplatapaliwo + " PLN.";
+        "Przyznana dieta wynosi: " + wyplata.toFixed(2) + " PLN. <br> Zwrot kosztów przejazdu wynosi: " + wyplatapaliwo + " PLN. <br> Suma przyznanych pieniędzy wynosi: " + suma.toFixed(2) + " PLN.";
 }

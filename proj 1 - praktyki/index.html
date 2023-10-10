@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
     <title>Kalkulator Diet</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var pojazdElement = document.getElementById("pojazd");
+            if (pojazdElement) {
+                // Ustaw opcję domyślną na "Samochód osobowy do 900cm3."
+                pojazdElement.value = "0";
+            }
+        });
+    </script>
+    
 </head>
 <body>
     <section class="left"><p></p></section>
@@ -206,6 +216,8 @@
         <label for="kolacja">Ilość kolacji:</label>
         <input id="kolacja" min="0" type="number" name="kolacja" value="0">
 
+        <p id="blad" style="color: red;"></p>
+
         <br>
         <br>
 
@@ -215,14 +227,17 @@
 
         <label for="pojazd"></label>
         <select id="pojazd" name="pojazd" class="form-control">
-            <option value="0">Nie jechałem samochodem.</option>
+            <option value="0" selected>Nie jechałem samochodem.</option>
             <option value="1">Samochód osobowy do 900cm3.</option>
             <option value="2">Samochód osobowy pow. 900cm3.</option>
         </select>
 
-        <button onclick="pojazdf()">Wybierz</button>
 
         <section id="kilometrowka"></section>
+
+        <br>
+
+        <p id="bladkm" style="color: red;"></p>
 
         <br>
         <br>
