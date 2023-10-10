@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-    <script src="script.js"></script>
-
+    <title>Kalkulator Diet</title>
 </head>
 <body>
-
     <section class="left"><p></p></section>
-
     <section class="center">
-
-        <H1>Kalkulator Diet</H1>
+        <h1>Kalkulator Diet</h1>
 
         <label for="start">Data rozpoczęcia podróży:</label>
         <input id="start" type="date" name="odjazd" value="">
@@ -219,25 +213,33 @@
 
         <br>
 
-        <label for="do900">Samochodem osobowym o pojemności silnika do 900 cm3</label>
-        <input id="do900" min="0" type="number" name="do900" value="0">
+        <label for="pojazd"></label>
+        <select id="pojazd" name="pojazd" class="form-control">
+            <option value="0">Nie jechałem samochodem.</option>
+            <option value="1">Samochód osobowy do 900cm3.</option>
+            <option value="2">Samochód osobowy pow. 900cm3.</option>
+        </select>
 
-        <label for="od900">Samochodem osobowym o pojemności silnika pow. 900 cm3</label>
-        <input id="od900" min="0" type="number" name="od900" value="0">
+        <button onclick="pojazdf()">Wybierz</button>
+
+        <section id="kilometrowka"></section>
+
         <br>
         <br>
 
-        <button onclick="dieta()">Oblicz diete</button>
+        <button id="oblicz-button">Oblicz diete</button>
+
+
 
         <br>
         <br>
 
         <p id="wynik"></p>
-
     </section>
 
     <section class="right"><p></p></section>
 
+    <script src="script.js"></script>
 </body>
 </html>
 

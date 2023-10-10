@@ -1,51 +1,82 @@
+document.addEventListener("DOMContentLoaded", function () {
+    var pojazdElement = document.getElementById("pojazd");
+    pojazdElement.addEventListener("change", pojazdf);
+
+    var obliczButton = document.getElementById("oblicz-button");
+    obliczButton.addEventListener("click", dieta);
+});
+
+function pojazdf() {
+    var pojazdElement = document.getElementById("pojazd");
+    var selectedPojazd = parseInt(pojazdElement.value);
+
+    var kilometrowkaSection = document.getElementById("kilometrowka");
+
+    if (selectedPojazd === 0) {
+        kilometrowkaSection.innerHTML = "<h5>Nie wybrano pojazdu!</h5>";
+    } else if (selectedPojazd === 1) {
+        kilometrowkaSection.innerHTML =
+            '<label for="do900">Samochodem osobowym o pojemności silnika do 900 cm3</label>' +
+            '<input id="do900" min="0" type="number" name="do900" value="0"> km';
+    } else if (selectedPojazd === 2) {
+        kilometrowkaSection.innerHTML =
+            '<label for="od900">Samochodem osobowym o pojemności silnika pow. 900 cm3</label>' +
+            '<input id="od900" min="0" type="number" name="od900" value="0"> km';
+    }
+}
+
 function dieta() {
-    var odjazd = document.getElementById("start").value;
-    var przyjazd = document.getElementById("end").value;
+    var startElement = document.getElementById("start");
+    var endElement = document.getElementById("end");
     var godzinyOdjazd = parseInt(document.getElementById("Godziny-odjazd").value);
     var minutyOdjazd = parseInt(document.getElementById("Minuty-odjazd").value);
     var godzinyPrzyjazd = parseInt(document.getElementById("Godziny-przyjazd").value);
     var minutyPrzyjazd = parseInt(document.getElementById("Minuty-przyjazd").value);
-    var sniadania = document.getElementById("sniadanie").value;
-    var obiady = document.getElementById("obiad").value;
-    var kolacje = document.getElementById("kolacja").value;
-    var od900 = document.getElementById("od900").value;
-    var do900 = document.getElementById("do900").value;
-
-
-    if (!odjazd || !przyjazd) {
+    var sniadania = parseInt(document.getElementById("sniadanie").value);
+    var obiady = parseInt(document.getElementById("obiad").value);
+    var kolacje = parseInt(document.getElementById("kolacja").value);
+    
+    var od900Element = document.getElementById("od900");
+    var do900Element = document.getElementById("do900");
+    
+    var od900 = od900Element ? parseFloat(od900Element.value) : 0;
+    var do900 = do900Element ? parseFloat(do900Element.value) : 0;
+    
+    if (!startElement || !endElement) {
         alert("Wprowadź poprawne daty.");
         return;
     }
 
     var wyplatado900 = 0.89 * do900;
     var wyplataod900 = 1.15 * od900;
-    var wyplatapaliwo = (parseFloat(wyplatado900) + parseFloat(wyplataod900)).toFixed(2);
+    var wyplatapaliwo = (wyplatado900 + wyplataod900).toFixed(2);
 
-    var date1 = new Date(odjazd);
-    var date2 = new Date(przyjazd);
+    var date1 = new Date(startElement.value);
+    var date2 = new Date(endElement.value);
 
     date1.setHours(godzinyOdjazd, minutyOdjazd);
     date2.setHours(godzinyPrzyjazd, minutyPrzyjazd);
 
     var differenceInMilliseconds = date2 - date1;
-
     var differenceInHours = differenceInMilliseconds / (1000 * 60 * 60);
 
     var wyplata = 0;
 
-    if (differenceInHours > 8 && differenceInHours < 12){
-        var wyplata = 22.50;
-    } else if (differenceInHours > 24) {
+    if (differenceInHours >= 8 && differenceInHours < 12) {
+        wyplata = 22.50;
+    } else if (differenceInHours >= 12) {
         var pelneDoby = Math.floor(differenceInHours / 24);
-        wyplata = ((pelneDoby * 45) - ((sniadania) * 11.50 ) - ((kolacje) * 11.50 ) - ((obiady) * 22.50 ));
-    } 
-    
-    if (wyplata < 0) {
-        var wyplata = 0;
+        wyplata = pelneDoby * 45 - sniadania * 11.50 - obiady * 22.50 - kolacje * 11.50;
     }
 
-    if (od900 < 0 || do900 < 0){
-        var wyplatapaliwo = 0;
+    if (wyplata < 0) {
+        wyplata = 0;
     }
-    document.getElementById("wynik").innerHTML = "Przyznana dieta wynosi: " + wyplata + "pln. <br> Zwrot kosztów przejazdu wynosi: " + wyplatapaliwo + "pln." ;
+
+    if (od900 < 0 || do900 < 0) {
+        wyplatapaliwo = 0;
+    }
+
+    document.getElementById("wynik").innerHTML =
+        "Przyznana dieta wynosi: " + wyplata.toFixed(2) + " PLN. <br> Zwrot kosztów przejazdu wynosi: " + wyplatapaliwo + " PLN.";
 }
